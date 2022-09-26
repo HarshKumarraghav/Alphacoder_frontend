@@ -1,6 +1,7 @@
 import React from "react";
 import HeroImg from "../../Assets/landing/hero.png";
 import Image from "next/image";
+
 const Hero = () => {
   return (
     <div className="w-full h-full flex justify-center items-center font-bold px-10 flex-col-reverse lg:flex-row gap-6">
