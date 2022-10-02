@@ -26,10 +26,9 @@ const Login = () => {
             className="border-none w-3/4 h-12 rounded-md placeholder:text-primary-color placeholder:font-bold placeholder:p-2 focus:outline-primary-color text-primary-color p-2"
             placeholder="Password"
           />
-          <input
-            type="submit"
-            className="w-3/4 text-center h-12 rounded-md bg-primary-color"
-          />
+          <button className="w-3/4 text-center h-12 rounded-md bg-primary-color">
+            Signup
+          </button>
         </form>
         <div className="">
           Don't have an account?&nbsp;
