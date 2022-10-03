@@ -1,8 +1,9 @@
 import React from "react";
 import HeroImg from "../../Assets/landing/hero.svg";
 import Image from "next/image";
-
+import { useRouter } from "next/router";
 const Hero = () => {
+  const router = useRouter();
   return (
     <div className="w-full h-full flex justify-center items-center font-bold px-10 flex-col-reverse lg:flex-row gap-6">
       <div className="w-full lg:w-1/2 lg:h-full flex items-center flex-col justify-center gap-y-10 leading-10">
@@ -14,7 +15,10 @@ const Hero = () => {
           &nbsp;problems at one place.
         </h1>
         <div className="flex justify-center">
-          <button className="w-40 text-center p-2 shadow-light-shadow bg-primary-color rounded-md">
+          <button
+            className="w-40 text-center p-2 shadow-light-shadow bg-primary-color rounded-md"
+            onClick={() => router.push("/Signup")}
+          >
             let's Begin
           </button>
         </div>
