@@ -1,15 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import LoginImg from "../Assets/Auth/login.svg";
 import Image from "next/image";
 import { useRouter } from "next/router";
+// import { UserContext, UserProvider } from "../Context/userContext";
 import { ArrowBack } from "@mui/icons-material";
 import Cookies from "js-cookie";
 const FETCH_URI = "https://magnificent-gold-production.up.railway.app/";
 const Login = () => {
   const router = useRouter();
+  // const [token, setToken] = useContext(UserContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const ClearFormData = () => {
     setEmail("");
     setPassword("");
@@ -27,20 +28,24 @@ const Login = () => {
         Password: password,
       }),
     };
-    const response = await fetch(FETCH_URI + "users/login", RequestOption);
-    const data = await response.text();
-    const arr = [];
-    arr.push(JSON.parse(data));
-    if (response.ok) {
+    const Response = await fetch(FETCH_URI + "users/login", RequestOption);
+    const data = await Response.text();
+    // console.log("res", Response, "data", JSON.parse(data));
+    const impdata = JSON.parse(data);
+    if (Response.ok) {
       ClearFormData();
-      Cookies.set("firstname", arr[0].first_name);
-      Cookies.set("lastname", arr[0].last_name);
-      Cookies.set("email", arr[0].email);
-      console.log("arr", arr[0].token);
-      Cookies.set("Token", arr[0].token);
-      Cookies.set("refresh_token", arr[0].refresh_token);
-      //   Cookies.set("Token", arr[0].token);
-      router.push("/Dashboard/Home");
+      console.log("data", data);
+      console.log("token", impdata.token, "dataParse", JSON.parse(data));
+      const user_data = {
+        firstname: impdata.first_name,
+        lastname: impdata.last_name,
+        email: impdata.email,
+        usersince: impdata.created_at,
+        lastlogin: impdata.updated_at,
+      };
+      localStorage.setItem("user-data", JSON.stringify(user_data));
+      Cookies.set("access_token", impdata.token);
+      router.push("/Dashboard");
     }
   };
   return (
