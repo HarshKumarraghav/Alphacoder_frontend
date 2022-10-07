@@ -12,11 +12,7 @@ Router.events.on("routeChangeStart", progress.start);
 Router.events.on("routeChangeComplete", progress.finish);
 Router.events.on("routeChangeError", progress.finish);
 function MyApp({ Component, pageProps }) {
-  return (
-    // <UserProvider>
-    <Component {...pageProps} />
-    // </UserProvider>
-  );
+  return <Component {...pageProps} />;
 }
 
 export default MyApp;

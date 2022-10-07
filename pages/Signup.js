@@ -3,6 +3,8 @@ import SignupImg from "../Assets/Auth/signup.svg";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { ArrowBack } from "@mui/icons-material";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const FETCH_URI = "https://magnificent-gold-production.up.railway.app/";
 
 const Signup = () => {
@@ -35,10 +37,27 @@ const Signup = () => {
         User_type: userType,
       }),
     };
-    const response = await fetch(FETCH_URI + "users/signup", RequestOption);
-    if (response.status == 200) {
-      ClearFormData();
+    const response = await toast.promise(
+      fetch(FETCH_URI + "users/signup", RequestOption),
+      {
+        pending: "Promise is pending",
+      }
+    );
+
+    if (response.status === 200) {
       router.push("/Login");
+    }
+    if (response.status === 500 || response.status === 400) {
+      toast.error("Please! enter valid details", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      ClearFormData();
     }
   };
   return (
@@ -119,6 +138,17 @@ const Signup = () => {
           </div>
         </div>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </>
   );
 };
