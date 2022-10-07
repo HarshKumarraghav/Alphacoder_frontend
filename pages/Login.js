@@ -50,7 +50,9 @@ const Login = () => {
         usersince: impdata.created_at,
         lastlogin: impdata.updated_at,
       };
-      localStorage.setItem("user-data", JSON.stringify(user_data));
+      const userdata = JSON.stringify(user_data);
+      Cookies.set("user-data", userdata);
+      localStorage.setItem("user-data", userdata);
       Cookies.set("access_token", impdata.token);
       router.push("/Dashboard");
     } else if (Response.status === 500) {
