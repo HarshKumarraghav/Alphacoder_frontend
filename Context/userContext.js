@@ -1,31 +1,27 @@
 // import React, { createContext, useContext, useEffect, useState } from "react";
 // import Cookies from "js-cookie";
+// import { GetServerSideProps } from "next";
 // export const UserContext = createContext();
-// const FETCH_URI = "https://magnificent-gold-production.up.railway.app/";
-// export const UserProvider = ({ children }) => {
+// // const FETCH_URI = "https://magnificent-gold-production.up.railway.app/";
+// // export default async function GetServerSideProps() {
+// //   const token = Cookies.get("access_token");
+
+// //   return {
+// //     props: {
+// //       tokenId: token,
+// //     },
+// //   };
+// // }
+
+// export const UserProvider = ({ children, tokenId }) => {
 //   const [token, setToken] = useState("");
-
-//   useEffect(() => {
-//     const fetchUser = async () => {
-//       const requestOptions = {
-//         method: "GET",
-//         headers: {
-//           "Content-Type": "application/json",
-//           Authorization: token,
-//         },
-//       };
-
-//       const response = await fetch(FETCH_URI + "api-1", requestOptions);
-
-//       if (!response.ok) {
-//         Cookies.set("access_token", null);
-//         setToken(null);
-//       }
-//       console.log(token);
-//       Cookies.set("access_token", token);
-//     };
-//     fetchUser();
-//   }, [token]);
+//   const tokenId = Cookies.get("access_token");
+//   if ((tokenId === "null", tokenId === undefined)) {
+//     setToken(null);
+//   } else {
+//     setToken(tokenId);
+//   }
+//   console.log(token, "tokenId", tokenId);
 
 //   return (
 //     <UserContext.Provider value={[token, setToken]}>

@@ -2,6 +2,8 @@ import React, { useState, useContext } from "react";
 import LoginImg from "../Assets/Auth/login.svg";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 // import { UserContext, UserProvider } from "../Context/userContext";
 import { ArrowBack } from "@mui/icons-material";
 import Cookies from "js-cookie";
@@ -28,9 +30,14 @@ const Login = () => {
         Password: password,
       }),
     };
-    const Response = await fetch(FETCH_URI + "users/login", RequestOption);
+    const Response = await toast.promise(
+      fetch(FETCH_URI + "users/login", RequestOption),
+      {
+        pending: "Verifying! please wait.",
+      }
+    );
     const data = await Response.text();
-    // console.log("res", Response, "data", JSON.parse(data));
+
     const impdata = JSON.parse(data);
     if (Response.ok) {
       ClearFormData();
@@ -46,6 +53,16 @@ const Login = () => {
       localStorage.setItem("user-data", JSON.stringify(user_data));
       Cookies.set("access_token", impdata.token);
       router.push("/Dashboard");
+    } else if (Response.status === 500) {
+      toast.error(impdata.error, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
   return (
@@ -101,6 +118,18 @@ const Login = () => {
           </span>
         </div>
       </div>
+      <ToastContainer
+        position="top-right"
+        toastClassName="dark-toast"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 };
