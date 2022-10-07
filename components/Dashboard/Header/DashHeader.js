@@ -1,10 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Avatar from "../../../Assets/Avatars/face1.svg";
-// import { useUserStore } from "../../../Context/UserContext";
 const DashHeader = () => {
-  // const [userData] = useUserStore();
-  // console.log("userdta", userData);
   return (
     <div className="w-full h-16 fixed flex justify-between px-4 z-30 shadow-light-shadow items-center bg-primary text-text font-main">
       <div className="font-head text-xl md:text-2xl lg:text-3xl cursor-pointer">
