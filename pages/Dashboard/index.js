@@ -26,7 +26,8 @@ const index = ({ data }) => {
 export default index;
 
 export const getServerSideProps = requireAuthentication(async (ctx) => {
-  const FETCH_URI = "https://magnificent-gold-production.up.railway.app/sheet";
+  const FETCH_URI =
+    "https://magnificent-gold-production.up.railway.app/sheets/frazsheet";
   const { req } = ctx;
   const token = req.cookies.access_token;
   const requestOptions = {
